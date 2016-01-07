@@ -23,7 +23,7 @@
     [super viewDidLoad];
     
     //背景图片设置
-    UIImageView* bg_view =[[UIImageView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    UIImageView* bg_view =[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     bg_view.image = [UIImage imageNamed:@"gamerbg.png"];
     
     //设置背景图片是否可以点击
@@ -32,7 +32,6 @@
     //按钮设置
     UIButton* back = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/3, SCREEN_HEIGHT/3, 37, 37)];
     [back setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    
     
     //按钮事件设置
     [back addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
