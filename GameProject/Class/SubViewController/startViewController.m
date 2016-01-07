@@ -17,14 +17,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
     self.view.backgroundColor = [UIColor blackColor];
-//    [self.navigationController popViewControllerAnimated:YES];
-  //  self.title = @"主页";
- //   [self dismissViewControllerAnimated:YES completion:nil];
-//    [self dismissViewControllerAnimated: YES completion: nil ];
+
     mainViewController  *vc = [[mainViewController alloc] init];
-    //[self presentViewController:vc animated: YES completion:nil];
+
     [self.navigationController pushViewController:vc animated:YES];
     [self.navigationController setNavigationBarHidden:YES];
 }

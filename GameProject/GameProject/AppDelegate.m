@@ -29,7 +29,6 @@
     mainViewController* vc = [[mainViewController alloc]init];
     UINavigationController* navi =[[UINavigationController alloc] initWithRootViewController:vc];
     [vc.navigationController setNavigationBarHidden:YES];
-   // self.window.rootViewController = vc;
     self.window.rootViewController = navi;
     
     //windows窗口可视化
