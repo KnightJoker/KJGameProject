@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4567A1C81C3E4CF90080A4B3 /* settingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4567A1C71C3E4CF90080A4B3 /* settingViewController.m */; };
 		457153381C3CD64B0096F042 /* mainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 457153371C3CD64B0096F042 /* mainViewController.m */; };
 		4571533F1C3CD7060096F042 /* startViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4571533E1C3CD7060096F042 /* startViewController.m */; };
 		457154091C3CE1280096F042 /* fruit-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 457153421C3CE1280096F042 /* fruit-1.png */; };
@@ -225,6 +226,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4567A1C61C3E4CF90080A4B3 /* settingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = settingViewController.h; sourceTree = "<group>"; };
+		4567A1C71C3E4CF90080A4B3 /* settingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = settingViewController.m; sourceTree = "<group>"; };
 		457153371C3CD64B0096F042 /* mainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mainViewController.m; sourceTree = "<group>"; };
 		4571533A1C3CD6F10096F042 /* mainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainViewController.h; sourceTree = "<group>"; };
 		4571533D1C3CD7060096F042 /* startViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = startViewController.h; sourceTree = "<group>"; };
@@ -492,6 +495,8 @@
 			children = (
 				4571533D1C3CD7060096F042 /* startViewController.h */,
 				4571533E1C3CD7060096F042 /* startViewController.m */,
+				4567A1C61C3E4CF90080A4B3 /* settingViewController.h */,
+				4567A1C71C3E4CF90080A4B3 /* settingViewController.m */,
 			);
 			path = SubViewController;
 			sourceTree = "<group>";
@@ -1153,6 +1158,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				459A67EB1C3BE0F700042F36 /* GameProject.xcdatamodeld in Sources */,
+				4567A1C81C3E4CF90080A4B3 /* settingViewController.m in Sources */,
 				457153381C3CD64B0096F042 /* mainViewController.m in Sources */,
 				4571533F1C3CD7060096F042 /* startViewController.m in Sources */,
 				459A67E21C3BE0F700042F36 /* AppDelegate.m in Sources */,

@@ -8,6 +8,7 @@
 
 #import "mainViewController.h"
 #import "startViewController.h"
+#import "settingViewController.h"
 #import "PublicDefine.h"
 
 @interface mainViewController ()
@@ -23,49 +24,58 @@
     //背景色
     self.view.backgroundColor = [UIColor whiteColor];
     
-    //开始按键
-    UIButton* startBn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    
-    //CGRectMake(x,y,a,b) x,y为矩形的坐标；a,b为矩形的长宽
-    startBn.frame = CGRectMake(155, 300,100, 60);
-    
-    [startBn setTitle:@"开始游戏"
-             forState:UIControlStateNormal];
-    //按钮文字距离边框的位置
-    [startBn setTitleEdgeInsets:UIEdgeInsetsMake(5,5,5,5)];
-    //按钮背景色
-    [startBn setBackgroundColor:UIColor.darkGrayColor];
-    
     //图片版开始按钮
-    UIButton* btn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-209)/2, 300, 209,67 )];
-    [btn setImage:[UIImage imageNamed:@"start.png"] forState:UIControlStateNormal];
+    UIButton* startbtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-209)/2, 300, 209,67 )];
+    [startbtn setImage:[UIImage imageNamed:@"start.png"] forState:UIControlStateNormal];
     
+    //图片版继续按钮
+    UIButton* continuebtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-209)/2,400, 209, 67)];
+    [continuebtn setImage:[UIImage imageNamed:@"continue.png"] forState:UIControlStateNormal];
+    
+    //图片版设置按钮
+    UIButton* settingbtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-209)/2, 500, 209, 67)];
+    [settingbtn setImage:[UIImage imageNamed:@"setting.png"] forState:UIControlStateNormal];
     
     //背景图片
     UIImageView* bg_view =[[UIImageView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     bg_view.image = [UIImage imageNamed:@"main-bg.png"];
+    
     //设置背景图片是否可以点击
     bg_view.userInteractionEnabled = YES;
     
-    //开始按钮事件设置
-    [startBn addTarget:self action:@selector(start:)
-      forControlEvents:UIControlEventTouchUpInside];
-    
-    [btn addTarget:self action:@selector(start:) forControlEvents:UIControlEventTouchUpInside];
-    
+    //按钮事件设置
+    [startbtn addTarget:self action:@selector(start:) forControlEvents:UIControlEventTouchUpInside];
+    [continuebtn addTarget:self action:@selector(contine:) forControlEvents:UIControlEventTouchUpInside];
+    [settingbtn addTarget:self action:@selector(setting:) forControlEvents:UIControlEventTouchUpInside];
     //可视化设置
     [self.view addSubview:bg_view];
-    [bg_view addSubview:btn];
-    //[self.view addSubview:startBn];
+    [bg_view addSubview:startbtn];
+    [bg_view addSubview:continuebtn];
+    [bg_view addSubview:settingbtn];
+
 }
+
 - (void)start:(id)sender{
     
     startViewController  *vc = [[startViewController alloc] init];
-    [self presentViewController:vc animated: YES completion:nil];
-   // [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController pushViewController:vc animated:YES];
+    /*导航条的隐藏*/
+    [self.navigationController setNavigationBarHidden:YES];
     
+    /*presentViewcontroller页面跳转*/
+    //[self presentViewController:vc animated: YES completion:nil];
     //  [vc release];
-    
+}
+
+- (void)contine:(id)sender{
+    NSLog(@"233333");
+}
+
+
+- (void)setting:(id)sender{
+    settingViewController *sc = [[settingViewController alloc] init];
+    [self.navigationController pushViewController:sc animated:YES];
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -21,9 +21,12 @@
     self.view.backgroundColor = [UIColor blackColor];
 //    [self.navigationController popViewControllerAnimated:YES];
   //  self.title = @"主页";
-   // mainViewController  *vc1 = [[mainViewController alloc] init];
-    [self dismissModalViewControllerAnimated: YES];
+ //   [self dismissViewControllerAnimated:YES completion:nil];
 //    [self dismissViewControllerAnimated: YES completion: nil ];
+    mainViewController  *vc = [[mainViewController alloc] init];
+    //[self presentViewController:vc animated: YES completion:nil];
+    [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (void)didReceiveMemoryWarning {
