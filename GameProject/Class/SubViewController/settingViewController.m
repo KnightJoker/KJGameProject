@@ -30,16 +30,43 @@
     bg_view.userInteractionEnabled = YES;
     
     //按钮设置
-    UIButton* back = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/3, SCREEN_HEIGHT/3, 37, 37)];
+    UIButton* back = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/5.5 + 10, SCREEN_HEIGHT/2.5 + 160, 37, 37)];
     [back setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    
+    UIButton* regroup = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/5.5 + 100, SCREEN_HEIGHT/2.5 + 160, 37, 37)];
+    [regroup setImage:[UIImage imageNamed:@"regroup.png"] forState:UIControlStateNormal];
+    
+    UIButton* continuegame =[[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/5.5 + 190, SCREEN_HEIGHT/2.5 + 160, 37, 37)];
+    [continuegame setImage:[UIImage imageNamed:@"continuegame.png"] forState:UIControlStateNormal];
     
     //按钮事件设置
     [back addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
     
+    [regroup addTarget:self action:@selector(regroup:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [continuegame addTarget:self action:@selector(continuegame:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //设置栏背景
+    UIImageView* pause_bg = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/5.5, SCREEN_HEIGHT/2.5, 250, 200)];
+    pause_bg.image = [UIImage imageNamed:@"pause_bg.png"];
+    
+    //音乐和音效界面设置
+    UIImageView* music = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/5.5 + 10, SCREEN_HEIGHT/2.5 + 20, 37, 37)];
+    music.image = [UIImage imageNamed:@"music.png"];
+    
+    UIImageView* sound = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/5.5 + 10, SCREEN_HEIGHT/2.5 + 100, 37, 37)];
+    sound.image = [UIImage imageNamed:@"sound.png"];
     
     //可视化操作
     [self.view addSubview:bg_view];
+    
+    [bg_view addSubview:pause_bg];
     [bg_view addSubview:back];
+    [bg_view addSubview:regroup];
+    [bg_view addSubview:continuegame];
+    
+    [bg_view addSubview:music];
+    [bg_view addSubview:sound];
 }
 
 
@@ -51,6 +78,13 @@
     
 }
 
+- (void)regroup:(id)sender{
+    NSLog(@"刷新");
+}
+
+- (void)continuegame:(id)sender{
+    NSLog(@"继续游戏");
+}
 
 
 
