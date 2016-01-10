@@ -57,6 +57,19 @@
     UIImageView* sound = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/5.5 + 10, SCREEN_HEIGHT/2.5 + 100, 37, 37)];
     sound.image = [UIImage imageNamed:@"sound.png"];
     
+    //滑动条设置
+    UISlider* slider = [[UISlider alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/5.5 + 10, SCREEN_HEIGHT/2.5 + 20, 20, 30)];
+    slider.minimumValue = 100;
+    slider.maximumValue = 500;
+    slider.value = 20;
+    slider.backgroundColor = [UIColor clearColor];
+    [slider setMinimumTrackImage:[UIImage imageNamed:@"slider_03.png"]
+                        forState:UIControlStateNormal];
+    //slider.minimumValueImage = [UIImage imageNamed:@"slider_03"];
+    
+    //滑动条事件设置
+    [slider addTarget:self action:@selector(updateslider:) forControlEvents:UIControlEventValueChanged];
+    
     //可视化操作
     [self.view addSubview:bg_view];
     
@@ -67,9 +80,13 @@
     
     [bg_view addSubview:music];
     [bg_view addSubview:sound];
+    
+    [bg_view addSubview:slider];
 }
 
+#pragma mark - 按钮响应(Button Actions)
 
+#pragma mark - 返回按钮
 - (void)back:(id)sender{
     mainViewController  *vc = [[mainViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
@@ -78,14 +95,20 @@
     
 }
 
+#pragma mark - 刷新按钮
 - (void)regroup:(id)sender{
     NSLog(@"刷新");
 }
 
+#pragma mark - 继续游戏按钮
 - (void)continuegame:(id)sender{
     NSLog(@"继续游戏");
 }
 
-
+#pragma mark - 滑动条
+- (void)updateslider:(id)sender{
+   // NSLog(@"已经滑动");
+  
+}
 
 @end
