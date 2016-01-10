@@ -6,16 +6,16 @@
 //  Copyright © 2016年 YYQ2B. All rights reserved.
 //
 
-#import "mainViewController.h"
-#import "startViewController.h"
-#import "settingViewController.h"
+#import "MainViewController.h"
+#import "StartViewController.h"
+#import "SettingViewController.h"
 #import "PublicDefine.h"
 
-@interface mainViewController ()
+@interface MainViewController ()
 
 @end
 
-@implementation mainViewController
+@implementation MainViewController
 
 #pragma mark - 生命周期(life circle)
 - (void)viewDidLoad {
@@ -76,7 +76,7 @@
 #pragma mark 开始按钮
 - (void)start:(id)sender{
     
-    startViewController  *vc = [[startViewController alloc] init];
+    StartViewController  *vc = [[StartViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
     /*导航条的隐藏*/
     [self.navigationController setNavigationBarHidden:YES];
@@ -93,7 +93,7 @@
 
 #pragma mark 设置按钮
 - (void)setting:(id)sender{
-    settingViewController *sc = [[settingViewController alloc] init];
+    SettingViewController *sc = [[SettingViewController alloc] init];
     [self.navigationController pushViewController:sc animated:YES];
     [self.navigationController setNavigationBarHidden:YES];
 }

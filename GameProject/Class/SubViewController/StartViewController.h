@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  startViewController.h
 //  GameProject
 //
 //  Created by YYQ2B on 16/1/5.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface mainViewController : UIViewController
-
+@interface StartViewController : UIViewController
 
 @end
-

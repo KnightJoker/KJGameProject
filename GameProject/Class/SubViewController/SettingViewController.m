@@ -6,18 +6,18 @@
 //  Copyright © 2016年 YYQ2B. All rights reserved.
 //
 
-#import "settingViewController.h"
+#import "SettingViewController.h"
 #import "PublicDefine.h"
-#import "mainViewController.h"
+#import "MainViewController.h"
 
 
 
 
-@interface settingViewController()
+@interface SettingViewController()
 
 @end
 
-@implementation settingViewController
+@implementation SettingViewController
 
 - (void) viewDidLoad{
     [super viewDidLoad];
@@ -88,7 +88,7 @@
 
 #pragma mark - 返回按钮
 - (void)back:(id)sender{
-    mainViewController  *vc = [[mainViewController alloc] init];
+    MainViewController  *vc = [[MainViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
     /*导航条的隐藏*/
     [self.navigationController setNavigationBarHidden:YES];

@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "mainViewController.h"
+#import "MainViewController.h"
 
 @interface AppDelegate ()
 
@@ -26,7 +26,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
     //设置navigation导航器
-    mainViewController* vc = [[mainViewController alloc]init];
+    MainViewController* vc = [[	MainViewController alloc]init];
     UINavigationController* navi =[[UINavigationController alloc] initWithRootViewController:vc];
     [vc.navigationController setNavigationBarHidden:YES];
     self.window.rootViewController = navi;

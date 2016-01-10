@@ -6,16 +6,16 @@
 //  Copyright © 2016年 YYQ2B. All rights reserved.
 //
 
-#import "startViewController.h"
-#import "mainViewController.h"
+#import "StartViewController.h"
+#import "MainViewController.h"
 #import "MenuView.h"
 #import "PublicDefine.h"
 
-@interface startViewController ()
+@interface StartViewController ()
 
 @end
 
-@implementation startViewController
+@implementation StartViewController
 
 #pragma mark - 生命周期
 
