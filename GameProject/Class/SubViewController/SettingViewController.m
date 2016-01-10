@@ -21,7 +21,11 @@
 
 - (void) viewDidLoad{
     [super viewDidLoad];
-    
+    [self initUI];
+}
+
+
+- (void)initUI{
     //背景图片设置
     UIImageView* bg_view =[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     bg_view.image = [UIImage imageNamed:@"gamerbg.png"];
@@ -82,8 +86,8 @@
     [bg_view addSubview:sound];
     
     [bg_view addSubview:slider];
-}
 
+}
 #pragma mark - 按钮响应(Button Actions)
 
 #pragma mark - 返回按钮
