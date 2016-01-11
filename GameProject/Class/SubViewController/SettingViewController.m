@@ -24,7 +24,7 @@
     [self initUI];
 }
 
-
+#pragma mark - 初始化
 - (void)initUI{
     //背景图片设置
     UIImageView* bg_view =[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];

@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface Engine : UIView
+@interface Engine : NSObject
+
+
++ (id)shareInstances;
+
+- (void)getPicMap:(int [10][10]) uiMap;
+
+- (void)beginGamer;
+- (void)nextGamer;
 
 @end

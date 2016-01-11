@@ -36,6 +36,16 @@
     return self;
 }
 
+- (void)beginGamer{
+    [self initMap];
+    [self initPicMap];
+}
+
+- (void)nextGamer{
+    [self initMap];
+    [picMap removeAllObjects];
+    [self initPicMap];
+}
 
 - (void)initMap{
     for(int i = 0; i < 10; i++){
@@ -63,6 +73,12 @@
             int num = arc4random_uniform(index);
             map[i][j] = [[picMap objectAtIndex:num] intValue];
             picMap[num] = picMap[--index];
+        }
+    }
+    
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            uiMap[i][j] = map[i][j];
         }
     }
 }
