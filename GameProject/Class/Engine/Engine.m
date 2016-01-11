@@ -104,8 +104,93 @@
     
 }
 
+/** 判断2个点是否 再一条直线上
+ @param firstRow 第一个元素的行值
+ @param firstColumn 第一个元素的列值
+ @param secondRow 第二个元素的行值
+ @param secondColumn 第二个元素的列值
+ 
+ @return BOOL 如果返回YES，代表可以消除
+ */
+-(BOOL)linkBylinkToItems:(int)firstRow
+                  column:(int)firstColumn
+              secondItem:(int)secondRow
+                  column:(int)secondColumn{
+    
+    NSNumber *number = [NSNumber numberWithInt:-1];
+    //判断2个元素的行值是否相等
+    if (firstRow == secondRow) {
+        //取得最大及最小值
+        int column_min = firstColumn > secondColumn? secondColumn : firstColumn;
+        int column_max = firstColumn > secondColumn? firstColumn : secondColumn;
+        
+        for (int j = column_min + 1; j < column_max; j++) {
+          
+            if (_map[firstRow][j] != number) {
+                return NO;
+            }
+        }
+        
+        return YES;
+    }
+    
+    //判断2个元素的列值是否相等
+    if (firstColumn == secondColumn) {
+        //取得最大及最小值
+        int row_min = firstRow > secondRow ? secondRow : firstRow;
+        int row_max = firstRow > secondRow ? firstRow : secondRow;
+        
+        for (int j = row_min + 1; j < row_max; j++) {
+            if (_map[j][firstColumn] != number) {
+                return NO;
+            }
+        }
+        
+        return YES;
+    }
+    
+    return NO;
+    
+}
+
+/** 2个元素是否能连接
+ @param firstRow 第一个元素的行值
+ @param firstColumn 第一个元素的列值
+ @param secondRow 第二个元素的行值
+ @param secondColumn 第二个元素的列值
+ 
+ @return int
+ @ 返回为了“0”，代表链接失败，否则链接成功（ “1” 代表是直线链接，“2” 代表是一折链接，“3” 代表是两折链接 ）
+ 
+ */
 
 
+-(int)isConnectionWithItems:(int)firstRow
+                     column:(int)firstColumn
+                 secondItem:(int)secondRow
+                     column:(int)secondColumn{
+    
+    NSNumber *number = [NSNumber numberWithInt:-1];
+    
+    if (_map[firstRow][firstColumn] == number || _map[secondRow][secondColumn] == number ||
+        _map[firstRow][firstColumn] != _map[secondRow][secondColumn] ||
+        ((firstRow == secondRow)&&(firstColumn == secondColumn))) {
+        
+        return 0;
+        
+    }
+    if ([self linkBylinkToItems:firstRow column:firstColumn secondItem:secondRow column:secondColumn]) {
+        
+        _map[firstRow][firstColumn] = number;
+        _map[secondRow][secondColumn] = number;
+        
+        return 1;
+    }
+    
+    
+    return 0;
+    
+}
 
 
 

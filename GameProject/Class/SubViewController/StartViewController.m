@@ -12,11 +12,22 @@
 #import "PublicDefine.h"
 #import "Engine.h"
 
-#define PIC_W   44
-#define PIC_H   44
+#define PIC_W   47
+#define PIC_H   47
 
-#define MARGIN_X  ((SCREEN_WIDTH - 44*8)/2)
-#define MARGIN_Y  ((SCREEN_HEIGHT - 44*8)/2+18.5)
+#define MARGIN_X  ((SCREEN_WIDTH - 47*8)/2)
+#define MARGIN_Y  ((SCREEN_HEIGHT - 47*8)/2+18.5)
+
+typedef NS_ENUM(NSInteger, GamerStatusType){
+    GamerStatusTypeNone,
+    GamerStatusTypeStart,
+    GamerStatusTypePause,
+    GamerStatusTypeEnd,
+    GamerStatusTypeFinished,
+    GamerStatusTypeGamerOver,
+    GamerStatusTypeContinue,
+    GamerStatusTypeMax,
+};
 
 @interface StartViewController (){
     UILabel *_number_label;
@@ -31,6 +42,8 @@
     int _secondColumn;
 }
 
+
+@property(nonatomic, assign)GamerStatusType gamerStatus;
 @end
 
 @implementation StartViewController
@@ -40,8 +53,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[Engine shareInstances] beginGamer];
-   // [self initUI];
-    [self initPicItems];
+    [self initUI];
+    //[self initPicItems];
 }
 
 
@@ -58,6 +71,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)initGamerParam{
+    _gamerStatus = GamerStatusTypeStart;
+    _firstRow = 0;
+    _firstColumn = 0;
+    _secondColumn = 0;
+    _secondRow = 0;
+}
 #pragma mark - 背景初始化(initiation)
 
 - (void)initUI{
@@ -83,9 +103,7 @@
     [self.view addSubview:bg_view];
     [bg_view addSubview:number];
     [bg_view addSubview:_number_label];
-    
-    MenuView* menu = [[MenuView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-40-40, SCREEN_WIDTH, 40)];
-    [bg_view addSubview:menu];
+
     
     [self initPicItems];
 }
@@ -97,12 +115,18 @@
     _uiMap = [NSMutableArray array];    //这个类型的数组必须先初始化才能赋值
     _uiMap = [[Engine shareInstances] getPicMap];
     
+    UIImageView* bg_view = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+   // bg_view.image = [UIImage imageNamed:@"gamerbg.png"];
+    bg_view.userInteractionEnabled = YES;
+    
+    [self.view addSubview:bg_view];
+    
     for (int i = 1; i < 9; i++) {
         for (int j = 1; j < 9; j++) {
             //int num = [_uiMap[i][j] integerValue];
             NSInteger num = [_uiMap[i][j] integerValue];  //
             
-            UIImageView* picView = [[UIImageView alloc] initWithFrame:CGRectMake(MARGIN_X + (j - 1 * PIC_W), MARGIN_Y + (i -1) * PIC_H, PIC_W, PIC_H)];
+            UIImageView* picView = [[UIImageView alloc] initWithFrame:CGRectMake(MARGIN_X + (j - 1) * PIC_W, MARGIN_Y + (i -1) * PIC_H, PIC_W, PIC_H)];
             
             NSString* imageName = [NSString stringWithFormat:@"fruit-%zi", num];
             
@@ -114,22 +138,94 @@
             
             [picView addGestureRecognizer:tap];
             
-            UIImageView* bg_view = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-            bg_view.image = [UIImage imageNamed:@"gamerbg.png"];
-            bg_view.userInteractionEnabled = YES;
-            
-            [self.view addSubview:bg_view];
             [bg_view addSubview:picView];
             
         }
     }
+    
+    
+    MenuView* menu = [[MenuView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-40-40, SCREEN_WIDTH, 40)];
+    [bg_view addSubview:menu];
 }
 
+
+#pragma mark -事件设置
 
 - (void)picItemsClicked:(id)sender{
     NSLog(@"点击成功");
+    if (sender && [sender isKindOfClass:[UITapGestureRecognizer class]]) {
+        UITapGestureRecognizer* tap = (UITapGestureRecognizer*)sender;
+        
+        CGRect rect = tap.view.frame;
+        
+        //计算元素所在的行列
+        int row = (rect.origin.y - MARGIN_Y)/PIC_H + 1;
+        int column = (rect.origin.x - MARGIN_X)/PIC_W + 1;
+        
+        switch (_gamerStatus) {
+            case GamerStatusTypeStart:
+            {
+                _gamerStatus = GamerStatusTypeEnd;
+                _firstRow = row;
+                _firstColumn = column;
+                
+                _firstView = (UIImageView*)tap.view;
+                
+                [UIView animateWithDuration:1. animations:^{
+                    CGRect rect = _firstView.frame;
+                    rect.size = CGSizeMake(48, 48);
+                    _firstView.frame = rect;
+                }];
+                
+            }
+                break;
+            case GamerStatusTypeEnd:
+            {
+                _gamerStatus = GamerStatusTypeStart;
+                _secondRow = row;
+                _secondColumn = column;
+                
+                _secondView = (UIImageView*)tap.view;
+                
+                [self linkToLink];
+                
+            }
+                break;
+            case GamerStatusTypeFinished:
+            {
+                
+            }
+                break;
+            default:
+                break;
+        }
+        
+        
+    }
+    
+
 }
 
+-(void)linkToLink{
+    int ret = [[Engine shareInstances] isConnectionWithItems:_firstRow
+                                                      column:_firstColumn
+                                                  secondItem:_secondRow
+                                                      column:_secondColumn];
+    
+    if (ret != 0) {
+        [self removePicItems];
+    }
+}
+
+/**
+ *
+ */
+-(void)removePicItems{
+    [_firstView removeFromSuperview];
+    _firstView = nil;
+    [_secondView removeFromSuperview];
+    _secondView = nil;
+}
 
 
 
