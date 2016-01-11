@@ -13,7 +13,7 @@
 
 + (id)shareInstances;
 
-- (void)getPicMap:(int [10][10]) uiMap;
+- (NSMutableArray *)getPicMap;
 
 - (void)beginGamer;
 - (void)nextGamer;

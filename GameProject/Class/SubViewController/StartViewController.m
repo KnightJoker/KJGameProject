@@ -19,16 +19,16 @@
 #define MARGIN_Y  ((SCREEN_HEIGHT - 44*8)/2+18.5)
 
 @interface StartViewController (){
-    UILabel *number_label;
-    int uiMap[10][10];
+    UILabel *_number_label;
+    NSMutableArray *_uiMap;
     
-    UIImageView* firstView;
-    UIImageView* secondView;
+    UIImageView *_firstView;
+    UIImageView *_secondView;
     
-    int firstRow;
-    int firstColumn;
-    int secondRow;
-    int secondColumn;
+    int _firstRow;
+    int _firstColumn;
+    int _secondRow;
+    int _secondColumn;
 }
 
 @end
@@ -75,14 +75,14 @@
     
     //分数条设置
     
-    number_label = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-110)/2+10, 80, 110, 35)];
-    number_label.text = @"2333";
-    number_label.backgroundColor = [UIColor clearColor];
+    _number_label = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-110)/2+10, 80, 110, 35)];
+    _number_label.text = @"2333";
+    _number_label.backgroundColor = [UIColor clearColor];
     
     //可视化设置
     [self.view addSubview:bg_view];
     [bg_view addSubview:number];
-    [bg_view addSubview:number_label];
+    [bg_view addSubview:_number_label];
     
     MenuView* menu = [[MenuView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-40-40, SCREEN_WIDTH, 40)];
     [bg_view addSubview:menu];
@@ -94,15 +94,17 @@
 #pragma mark - 初始化图片
 
 - (void)initPicItems{
-    [[Engine shareInstances] getPicMap:uiMap];
+    _uiMap = [NSMutableArray array];    //这个类型的数组必须先初始化才能赋值
+    _uiMap = [[Engine shareInstances] getPicMap];
     
     for (int i = 1; i < 9; i++) {
         for (int j = 1; j < 9; j++) {
-            int num = uiMap[i][j];
+            //int num = [_uiMap[i][j] integerValue];
+            NSInteger num = [_uiMap[i][j] integerValue];  //
             
             UIImageView* picView = [[UIImageView alloc] initWithFrame:CGRectMake(MARGIN_X + (j - 1 * PIC_W), MARGIN_Y + (i -1) * PIC_H, PIC_W, PIC_H)];
             
-            NSString* imageName = [NSString stringWithFormat:@"fruit-%d",num];
+            NSString* imageName = [NSString stringWithFormat:@"fruit-%zi", num];
             
             picView.image = [UIImage imageNamed:imageName];
             
@@ -116,7 +118,7 @@
             bg_view.image = [UIImage imageNamed:@"gamerbg.png"];
             bg_view.userInteractionEnabled = YES;
             
-            //[self.view addSubview:bg_view];
+            [self.view addSubview:bg_view];
             [bg_view addSubview:picView];
             
         }
