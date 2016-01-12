@@ -256,6 +256,7 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
         __weak typeof(self) weakSelf = self;
         [self scaleChangeForItem:_secondView isScaleUp:NO completion:^(BOOL finished) {
             [weakSelf modifyScore:ret];
+            [weakSelf animationItems:ret rect:_secondView.frame];
             [weakSelf removePicItems];
         }];
         
@@ -312,6 +313,27 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
         view.frame = rect;
         view.center = originCenter;
     } completion:completion];
+}
+
+#pragma mark 消除动画
+-(void)animationItems:(int)ret rect:(CGRect)rect{
+    
+    UILabel* label = [[UILabel alloc] initWithFrame:rect];
+    label.backgroundColor = [UIColor clearColor];
+    
+    label.text = [NSString stringWithFormat:@"%d", ret*100];
+    label.textColor = [UIColor redColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    
+    [self.view addSubview:label];
+    
+    [UIView animateWithDuration:1 animations:^{
+        CGRect rt = label.frame;
+        rt.origin.y -= 50;
+        label.frame = rt;
+    }completion:^(BOOL finished){
+        [label removeFromSuperview];
+    }];
 }
 
 @end
