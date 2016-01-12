@@ -53,6 +53,7 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[Engine shareInstances] beginGamer];
+    [self initGamerParam];
     [self initUI];
     //[self initPicItems];
 }
@@ -162,6 +163,7 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
         int row = (rect.origin.y - MARGIN_Y)/PIC_H + 1;
         int column = (rect.origin.x - MARGIN_X)/PIC_W + 1;
         
+//        NSLog(_gamerStatus);
         switch (_gamerStatus) {
             case GamerStatusTypeStart:
             {
@@ -226,14 +228,6 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     [_secondView removeFromSuperview];
     _secondView = nil;
 }
-
-
-
-
-
-
-
-
 
 
 

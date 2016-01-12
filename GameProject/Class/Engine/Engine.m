@@ -153,6 +153,69 @@
     
 }
 
+/**
+ *  判断2个元素是否能通过一次转折连接
+ *
+ @param firstRow 第一个元素的行值
+ @param firstColumn 第一个元素的列值
+ @param secondRow 第二个元素的行值
+ @param secondColumn 第二个元素的列值
+ 
+ @return BOOL 如果返回YES，代表可以消除，否则－－－－－
+ */
+-(BOOL)linkByOneTurnWithItms:(int)firstRow
+                      column:(int)firstColumn
+                  secondItem:(int)secondRow
+                      column:(int)secondColumn{
+    
+    //通过一折消去，折点是固定的(firstRow,secondColumn)及 (secondRow，firstColumn)
+     NSNumber *number = [NSNumber numberWithInt:-1];
+    
+    if (_map[firstRow][secondColumn] == number && [self linkBylinkToItems:firstRow column:secondColumn secondItem:firstRow column:firstColumn] && [self linkBylinkToItems:firstRow column:secondColumn secondItem:secondRow column:secondColumn]) {
+        
+        return YES;
+    }
+    
+    if (_map[secondRow][firstColumn] == number && [self linkBylinkToItems:secondRow column:firstColumn secondItem:firstRow column:firstColumn] && [self linkBylinkToItems:secondRow column:firstColumn secondItem:secondRow column:secondColumn]) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+
+/**
+ *  判断2个元素是否能通过2次转折连接
+ *
+ @param firstRow 第一个元素的行值
+ @param firstColumn 第一个元素的列值
+ @param secondRow 第二个元素的行值
+ @param secondColumn 第二个元素的列值
+ 
+ @return BOOL 如果返回YES，代表可以消除，否则－－－－－
+ */
+-(BOOL)linkByTwoTurnWithItms:(int)firstRow
+                      column:(int)firstColumn
+                  secondItem:(int)secondRow
+                      column:(int)secondColumn{
+    
+    NSNumber *number = [NSNumber numberWithInt:-1];
+    
+    for (int row = 0; row < 10; row++) {
+        if (_map[row][firstColumn] == number && [self linkBylinkToItems:row column:firstColumn secondItem:firstRow column:firstColumn] && [self linkByOneTurnWithItms:row column:firstColumn secondItem:secondRow column:secondColumn]) {
+            return YES;
+        }
+    }
+    
+    for (int column = 0; column < 10; column++) {
+        if (_map[firstRow][column] == number && [self linkBylinkToItems:firstRow column:column secondItem:firstRow column:firstColumn] && [self linkByOneTurnWithItms:firstRow column:column secondItem:secondRow column:secondColumn]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+
 /** 2个元素是否能连接
  @param firstRow 第一个元素的行值
  @param firstColumn 第一个元素的列值
@@ -187,6 +250,17 @@
         return 1;
     }
     
+    if ([self linkByOneTurnWithItms:firstRow column:firstColumn secondItem:secondRow column:secondColumn]) {
+        _map[firstRow][firstColumn] = number;
+        _map[secondRow][secondColumn] = number;
+        return 2;
+    }
+    
+    if ([self linkByTwoTurnWithItms:firstRow column:firstColumn secondItem:secondRow column:secondColumn]) {
+        _map[firstRow][firstColumn] = number;
+        _map[secondRow][secondColumn] = number;
+        return 3;
+    }
     
     return 0;
     
