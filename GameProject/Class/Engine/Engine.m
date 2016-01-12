@@ -226,8 +226,6 @@
  @ 返回为了“0”，代表链接失败，否则链接成功（ “1” 代表是直线链接，“2” 代表是一折链接，“3” 代表是两折链接 ）
  
  */
-
-
 -(int)isConnectionWithItems:(int)firstRow
                      column:(int)firstColumn
                  secondItem:(int)secondRow
