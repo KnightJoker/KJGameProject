@@ -8,6 +8,7 @@
 
 #import "MenuView.h"
 #import "PublicDefine.h"
+#import "StartViewController.h"
 
 @interface MenuView()
 

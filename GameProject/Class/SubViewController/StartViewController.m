@@ -18,6 +18,9 @@
 #define MARGIN_X  ((SCREEN_WIDTH - 47*8)/2)
 #define MARGIN_Y  ((SCREEN_HEIGHT - 47*8)/2+18.5)
 
+#define PROGRESS_TOTAL_LEN (SCREEN_WIDTH - 100.0)
+#define PROGRESS_STEP_LEN (PROGRESS_TOTAL_LEN/120.0)
+
 typedef NS_ENUM(NSInteger, GamerStatusType){
     GamerStatusTypeNone,
     GamerStatusTypeStart,
@@ -40,6 +43,11 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     int _firstColumn;
     int _secondRow;
     int _secondColumn;
+    
+    CGFloat _currectProgress;//记录当前的进度条
+    UIProgressView *_progressView;
+    NSTimer *_timer;//计时器
+    
 }
 
 
@@ -72,13 +80,16 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     // Dispose of any resources that can be recreated.
 }
 
--(void)initGamerParam{
+#pragma mark -初始化游戏界面
+
+- (void)initGamerParam{
     _gamerStatus = GamerStatusTypeStart;
     _firstRow = 0;
     _firstColumn = 0;
     _secondColumn = 0;
     _secondRow = 0;
 }
+
 #pragma mark - 背景初始化(initiation)
 
 - (void)initUI{
@@ -97,16 +108,28 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     //分数条设置
     
     _number_label = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-110)/2+10, 80, 110, 35)];
-    _number_label.text = @"2333";
+    _number_label.text = @"0";
+    _number_label.textColor = [UIColor yellowColor];
     _number_label.backgroundColor = [UIColor clearColor];
+    
+    //进度条设置
+    _progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(50,CGRectGetMaxY(_number_label.frame) + 15, SCREEN_WIDTH - 100, 100)];
+    _progressView.progressViewStyle = UIProgressViewStyleDefault;
+    _progressView.tintColor = [UIColor yellowColor];
+    _progressView.progress = 1.0f;
+    
+    //利用计时器，每1S调用一次
+    _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateProgressView:)  userInfo:nil repeats:YES];
     
     //可视化设置
     [self.view addSubview:bg_view];
     [bg_view addSubview:number];
     [bg_view addSubview:_number_label];
+    [bg_view addSubview:_progressView];
+   // [_timer fire];
 
-    
     [self initPicItems];
+   // [self progresssView];
 }
 
 
@@ -208,27 +231,51 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
 
 }
 
--(void)linkToLink{
+#pragma mark 链接事件
+
+- (void)linkToLink{
     int ret = [[Engine shareInstances] isConnectionWithItems:_firstRow
                                                       column:_firstColumn
                                                   secondItem:_secondRow
                                                       column:_secondColumn];
     
     if (ret != 0) {
+        [self modifyScore:ret];
         [self removePicItems];
     }
 }
 
-/**
- *
- */
--(void)removePicItems{
+#pragma mark 消除图片
+- (void)removePicItems{
     [_firstView removeFromSuperview];
     _firstView = nil;
     [_secondView removeFromSuperview];
     _secondView = nil;
 }
 
+#pragma mark 分数设置
 
+- (void)modifyScore:(int)param{
+    
+    int currentNum = [_number_label.text intValue];
+    
+    int num = param * 100 + currentNum;
+    
+    [_number_label setText:[NSString stringWithFormat:@"%d",num]];
+
+}
+
+#pragma mark 进度条事件
+- (void)updateProgressView:(id)sender{
+    
+    _currectProgress -= PROGRESS_STEP_LEN;
+    
+    if (_currectProgress < 0) {
+        [_timer invalidate];
+        _timer = nil;
+    }
+    [_progressView setProgress:_currectProgress - 100 animated:YES];
+
+}
 
 @end
