@@ -51,10 +51,11 @@
 - (NSMutableArray*)refresh:(NSMutableArray *)map{
     
     NSNumber *number = [NSNumber numberWithInt:-1];
-    NSNumber *index = [NSNumber numberWithInt:(arc4random_uniform(64))];
     for (int i = 1; i < 9; i++) {
         for (int j = 1; j < 9; j++) {
             if (map[i][j] != number) {
+                //随机生成每个点新的值，这里没有保证成对，你自己看下怎么优化
+                NSNumber *index = @(arc4random() % 5 + 1);
                 map[i][j] = index;
             }
         }

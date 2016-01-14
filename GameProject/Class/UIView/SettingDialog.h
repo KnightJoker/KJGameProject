@@ -10,7 +10,7 @@
 
 @protocol SettingDialogDelegate <NSObject>
 
-- (void)closeDialog;
+- (void)settingDialogDidClose;
 
 @end
 

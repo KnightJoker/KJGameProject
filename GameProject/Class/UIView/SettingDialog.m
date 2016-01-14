@@ -47,8 +47,8 @@
         switch (tapView.tag) {
             case 1000:
             {
-                if (_delegate && [_delegate respondsToSelector:@selector(closeDialog)]) {
-                    [_delegate closeDialog];
+                if (_delegate && [_delegate respondsToSelector:@selector(settingDialogDidClose)]) {
+                    [_delegate settingDialogDidClose];
                 }
             }
                 break;
@@ -70,8 +70,8 @@
     }
     else
     {
-        if (_delegate && [_delegate respondsToSelector:@selector(closeDialog)]) {
-            [_delegate closeDialog];
+        if (_delegate && [_delegate respondsToSelector:@selector(settingDialogDidClose)]) {
+            [_delegate settingDialogDidClose];
         }
     }
     
