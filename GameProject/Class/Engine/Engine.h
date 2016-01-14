@@ -18,6 +18,8 @@
 - (void)beginGamer;
 - (void)nextGamer;
 
+- (NSMutableArray*)refresh:(NSMutableArray*)map;
+
 -(int)isConnectionWithItems:(int)firstRow
                      column:(int)firstColumn
                  secondItem:(int)secondRow

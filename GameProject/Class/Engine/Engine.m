@@ -42,9 +42,30 @@
 }
 
 - (void)nextGamer{
-    [self initMap];
+    [_map removeAllObjects];
     [_picMap removeAllObjects];
+    [self initMap];
     [self initPicMap];
+}
+
+- (NSMutableArray*)refresh:(NSMutableArray *)map{
+    
+    NSNumber *number = [NSNumber numberWithInt:-1];
+    NSNumber *index = [NSNumber numberWithInt:(arc4random_uniform(64))];
+    for (int i = 1; i < 9; i++) {
+        for (int j = 1; j < 9; j++) {
+            if (map[i][j] != number) {
+                map[i][j] = index;
+            }
+        }
+    }
+    return map;
+}
+
+- (BOOL)find:(NSMutableArray *)map{
+    
+    
+    return YES;
 }
 
 - (void)initMap{
@@ -61,6 +82,8 @@
     }
     
 }
+
+
 
 - (NSMutableArray *)getPicMap{
     

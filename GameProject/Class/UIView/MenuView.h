@@ -8,6 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MenuView : UIView
+@protocol MenuViewDelegate <NSObject>
+
+- (void)pauseMenuClicked;
+- (void)refreshMenuClicked;
+- (void)findMenuClicked;
 
 @end
+
+@interface MenuView : UIView
+
+@property(nonatomic, assign)id<MenuViewDelegate> delegate;
+
+@end
+
+
+

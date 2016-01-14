@@ -11,6 +11,7 @@
 #import "MenuView.h"
 #import "PublicDefine.h"
 #import "Engine.h"
+#import "SettingDialog.h"
 
 #define PIC_W   47
 #define PIC_H   47
@@ -32,7 +33,7 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     GamerStatusTypeMax,
 };
 
-@interface StartViewController (){
+@interface StartViewController ()<MenuViewDelegate,SettingDialogDelegate>{
     UILabel *_numberLabel;
     NSMutableArray *_uiMap;
     
@@ -69,6 +70,7 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     [[Engine shareInstances] beginGamer];
     [self initGamerParam];
     [self initUI];
+    [self.timer fire];
     //[self initPicItems];
 }
 
@@ -80,7 +82,7 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     //注意，离开这个页面的时候，除非有需要让timer继续运行，否则必须要invalidate
     //否则你的timer会在后台一直跑，并且不会跑到你写的invalidate的方法内，导致这个页面的内存无法被释放
     [_timer invalidate];
-    
+   // [self.timer fire];
     //[self initUI];
     
 }
@@ -91,7 +93,7 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark -初始化游戏界面
+#pragma mark - 初始化参数设置
 
 - (void)initGamerParam{
     _gamerStatus = GamerStatusTypeStart;
@@ -99,6 +101,16 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     _firstColumn = 0;
     _secondColumn = 0;
     _secondRow = 0;
+    _uiMap = [NSMutableArray array];    //这个类型的数组必须先初始化才能赋值
+    _uiMap = [[Engine shareInstances] getPicMap];
+}
+
+- (NSTimer *)timer{
+    if (_timer == nil) {
+        //利用计时器，每1S调用一次
+        _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateProgressView:)  userInfo:nil repeats:YES];
+    }
+    return _timer;
 }
 
 #pragma mark - 背景初始化(initiation)
@@ -110,6 +122,7 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     bg_view.image = [UIImage imageNamed:@"gamerbg.png"];
     //设置背景图片是否可以点击
     bg_view.userInteractionEnabled = YES;
+    
     
     //分数条背景的设置
     UIImageView* number = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-110)/2, 80, 110, 35)];
@@ -129,27 +142,20 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     _progressView.tintColor = [UIColor yellowColor];
     _progressView.progress = 1.0f;
     
-    //利用计时器，每1S调用一次
-    _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateProgressView:)  userInfo:nil repeats:YES];
-    
     //可视化设置
     [self.view addSubview:bg_view];
     [bg_view addSubview:number];
     [bg_view addSubview:_numberLabel];
     [bg_view addSubview:_progressView];
-    // [_timer fire];
-    
+
     [self initPicItems];
-    // [self progresssView];
+
 }
 
 
-#pragma mark - 初始化图片
+#pragma mark 初始化图片
 
 - (void)initPicItems{
-    
-    _uiMap = [NSMutableArray array];    //这个类型的数组必须先初始化才能赋值
-    _uiMap = [[Engine shareInstances] getPicMap];
     
     UIImageView* bg_view = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     // bg_view.image = [UIImage imageNamed:@"gamerbg.png"];
@@ -176,11 +182,12 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     }
     
     MenuView* menu = [[MenuView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-40-40, SCREEN_WIDTH, 40)];
+    menu.delegate = self;
     [bg_view addSubview:menu];
 }
 
 
-#pragma mark - 事件设置
+#pragma mark - 图片点击事件设置
 - (void)picItemsClicked:(id)sender{
     NSLog(@"点击成功");
     if (sender && [sender isKindOfClass:[UITapGestureRecognizer class]]) {
@@ -292,11 +299,11 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     _currectProgress -= PROGRESS_STEP_LEN;
     
     if (_currectProgress < 0) {
-        [_timer invalidate];
+        [self.timer invalidate];
         _timer = nil;
     }
     
-    [_progressView setProgress:_currectProgress - 100 animated:YES];
+    [_progressView setProgress:_currectProgress / PROGRESS_TOTAL_LEN animated:YES];
     
 }
 
@@ -334,6 +341,38 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     }completion:^(BOOL finished){
         [label removeFromSuperview];
     }];
+}
+
+#pragma mark - 代理事件处理
+
+- (void) pauseMenuClicked{
+    NSLog(@"暂停");
+    //[_timer setFireDate:[NSDate distantFuture]];
+    SettingDialog* dlg = [[SettingDialog alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    dlg.tag = 1;
+    dlg.delegate = self;
+    [self.view addSubview:dlg];
+}
+
+- (void) refreshMenuClicked{
+    NSLog(@"刷新");
+    //[[Engine shareInstances] nextGamer];
+    _numberLabel.text = @"0";
+    [self modifyScore:0];
+    _uiMap = [[Engine shareInstances] refresh:_uiMap];
+    [self initPicItems];
+
+}
+
+- (void) findMenuClicked{
+    NSLog(@"发现");
+}
+
+- (void)closeDialog{
+    SettingDialog* dialog = (SettingDialog*)[self.view viewWithTag:1];
+    [dialog removeFromSuperview];
+    dialog = nil;
+   // [_timer setFireDate:[NSDate date]];
 }
 
 @end

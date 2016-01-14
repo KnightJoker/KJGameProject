@@ -208,6 +208,7 @@
 		459A67FB1C3BE0F700042F36 /* GameProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 459A67FA1C3BE0F700042F36 /* GameProjectTests.m */; };
 		459A68061C3BE0F700042F36 /* GameProjectUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 459A68051C3BE0F700042F36 /* GameProjectUITests.m */; };
 		45D6227C1C42887C00BC17E0 /* Engine.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D6227B1C42887C00BC17E0 /* Engine.m */; };
+		45E6C3791C472DA600551E16 /* SettingDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E6C3781C472DA600551E16 /* SettingDialog.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -442,6 +443,8 @@
 		459A68071C3BE0F700042F36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45D6227A1C42887C00BC17E0 /* Engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Engine.h; sourceTree = "<group>"; };
 		45D6227B1C42887C00BC17E0 /* Engine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Engine.m; sourceTree = "<group>"; };
+		45E6C3771C472DA600551E16 /* SettingDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingDialog.h; sourceTree = "<group>"; };
+		45E6C3781C472DA600551E16 /* SettingDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingDialog.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -474,6 +477,8 @@
 			children = (
 				455883BE1C3F4C4A0073F842 /* MenuView.h */,
 				455883BF1C3F4C4A0073F842 /* MenuView.m */,
+				45E6C3771C472DA600551E16 /* SettingDialog.h */,
+				45E6C3781C472DA600551E16 /* SettingDialog.m */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -1186,6 +1191,7 @@
 				459A67EB1C3BE0F700042F36 /* GameProject.xcdatamodeld in Sources */,
 				45D6227C1C42887C00BC17E0 /* Engine.m in Sources */,
 				4567A1C81C3E4CF90080A4B3 /* SettingViewController.m in Sources */,
+				45E6C3791C472DA600551E16 /* SettingDialog.m in Sources */,
 				457153381C3CD64B0096F042 /* MainViewController.m in Sources */,
 				4571533F1C3CD7060096F042 /* StartViewController.m in Sources */,
 				459A67E21C3BE0F700042F36 /* AppDelegate.m in Sources */,

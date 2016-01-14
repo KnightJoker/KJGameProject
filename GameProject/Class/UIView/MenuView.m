@@ -11,7 +11,9 @@
 #import "StartViewController.h"
 #import "Engine.h"
 
-@interface MenuView()
+@interface MenuView(){
+    NSTimer *_timer;//计时器
+}
 
 @end
 
@@ -51,13 +53,13 @@
     find.userInteractionEnabled = YES;
     
     //按钮点击事件的设置
-    UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pauseMenuClicked:)];
+    UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pauseMenuClicked)];
     [pause addGestureRecognizer:tap];
     
-    UITapGestureRecognizer* tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(refreshMenuClicked:)];
+    UITapGestureRecognizer* tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(refreshMenuClicked)];
     [refresh addGestureRecognizer:tap1];
     
-    UITapGestureRecognizer* tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(findMenuClicked:)];
+    UITapGestureRecognizer* tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(findMenuClicked)];
     [find addGestureRecognizer:tap2];
     
     //按钮的可视化
@@ -69,17 +71,21 @@
 
 
 
-- (void) pauseMenuClicked:(id)sender{
-    NSLog(@"暂停");
+- (void) pauseMenuClicked{
+   // NSLog(@"暂停");
+        [_delegate pauseMenuClicked];
+
 }
 
-- (void) refreshMenuClicked:(id)sender{
-    NSLog(@"刷新");
+- (void) refreshMenuClicked{
+  //  NSLog(@"刷新");
+    [_delegate refreshMenuClicked];
 }
 
 
-- (void) findMenuClicked:(id)sender{
-    NSLog(@"发现");
+- (void) findMenuClicked{
+  //  NSLog(@"发现");
+    [_delegate findMenuClicked];
 }
 
 
