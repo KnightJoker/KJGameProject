@@ -13,4 +13,7 @@
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
+#define MUSIC_WISTH  (SCREEN_WIDTH-200)/2+5
+#define MUSIC_HEIGHT  (SCREEN_HEIGHT-130)/2+5
+
 #endif /* PublicDefine_h */

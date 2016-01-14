@@ -48,19 +48,50 @@
     [self initPicMap];
 }
 
-- (NSMutableArray*)refresh:(NSMutableArray *)map{
+- (NSMutableArray *)clear:(NSMutableArray *)map{
     
     NSNumber *number = [NSNumber numberWithInt:-1];
     for (int i = 1; i < 9; i++) {
         for (int j = 1; j < 9; j++) {
             if (map[i][j] != number) {
-                //随机生成每个点新的值，这里没有保证成对，你自己看下怎么优化
-                NSNumber *index = @(arc4random() % 5 + 1);
-                map[i][j] = index;
+                map[i][j] = number;
             }
         }
     }
     return map;
+}
+
+- (void)refresh{
+    
+    int index = 64;
+//    NSNumber *number = [NSNumber numberWithInt:-1];
+//    NSMutableArray *lineArray = [NSMutableArray arrayWithArray:_map];
+
+    NSMutableArray *tempArray = [NSMutableArray array];
+    for (int i = 1; i < 9; i++) {
+        for (int j = 1; j < 9; j++) {
+//            tempArray[8*i+j]=_map[i][j];
+        }
+//        [tempArray objectAtIndex:i];
+//        [tempArray addObject:[_map objectAtIndex:i]];
+    }
+    [_map removeAllObjects];
+    
+    for (int i = 1; i < 9; i++) {
+        NSMutableArray *lineArray = [NSMutableArray array];
+        for (int j = 1; j < 9; j++) {
+//     此处容易出现index数组越界，并且执行之前 _map,tempArray,lineArray都为 0 object
+            int num = arc4random_uniform(index);
+            [lineArray addObject:@([[tempArray objectAtIndex:num] integerValue])];
+            tempArray[num] = tempArray[--index];
+            
+        }
+
+//        [lineArray insertObject:@(-1) atIndex:0];
+//        [lineArray addObject:@(-1)];
+        
+        [_map addObject:lineArray];
+    }
 }
 
 - (BOOL)find:(NSMutableArray *)map{

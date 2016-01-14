@@ -8,6 +8,7 @@
 
 #import "SettingDialog.h"
 #import "PublicDefine.h"
+#import "MainViewController.h"
 
 @interface SettingDialog ()
 @property(nonatomic,strong)UIImageView *pause_bg;
@@ -20,6 +21,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self initDialogUI];
+        [self addMySlider:0];
+        [self addMySlider:45];
+        [self initButtonwithCGRect];
     }
     return self;
 }
@@ -37,6 +41,8 @@
     [mbView addSubview:_pause_bg];
 }
 
+
+#pragma mark - touch事件设置
 - (void)dialogTap:(id)sender{
     if (sender && [sender isKindOfClass:[UITapGestureRecognizer class]]) {
         
@@ -76,5 +82,105 @@
     }
     
 }
+
+
+#pragma mark - 按键的基本设置
+
+- (void)initButtonwithCGRect{
+    
+    int margin1 =(200 - 37 * 3) / 4;
+    UIButton *music = [[UIButton alloc] initWithFrame:CGRectMake(MUSIC_WISTH,MUSIC_HEIGHT+6 , 37, 37)];
+    [music setImage:[UIImage imageNamed:@"music.png"] forState:UIControlStateNormal];
+    [music addTarget:self action:@selector(imageClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:music];
+    music.tag = 3000;
+    
+    UIButton *sound = [[UIButton alloc] initWithFrame:CGRectMake(MUSIC_WISTH,MUSIC_HEIGHT+130-80 , 37, 37)];
+    [sound setImage:[UIImage imageNamed:@"sound.png"] forState:UIControlStateNormal];
+    [sound addTarget:self action:@selector(imageClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:sound];
+    sound.tag = 4000;
+    
+    UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(MUSIC_WISTH+margin1-5,MUSIC_HEIGHT+130-25 , 37, 37)];
+    [back setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    [back addTarget:self action:@selector(imageClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:back];
+    back.tag = 5000;
+    
+    
+    UIButton *regroup = [[UIButton alloc] initWithFrame:CGRectMake(MUSIC_WISTH+2*margin1+37-5,MUSIC_HEIGHT+130-25 , 37, 37)];
+    [regroup setImage:[UIImage imageNamed:@"regroup.png"] forState:UIControlStateNormal];
+    [regroup addTarget:self action:@selector(imageClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:regroup];
+    regroup.tag = 6000;
+    
+    UIButton* continuegame = [[UIButton alloc] initWithFrame:CGRectMake(MUSIC_WISTH+200-3*margin1,MUSIC_HEIGHT+130-25 , 37, 37)];
+    [continuegame setImage:[UIImage imageNamed:@"continuegame.png"] forState:UIControlStateNormal];
+    [continuegame addTarget:self action:@selector(imageClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:continuegame];
+    continuegame.tag = 7000;
+    
+    
+}
+//滑动条
+-(void)addMySlider:(int) i{
+    //滑块图片
+    UIImage *thumbImage = [UIImage imageNamed:@"slider_03.png"];
+    
+    
+    UISlider *sliderA=[[UISlider alloc]initWithFrame:CGRectMake(MUSIC_WISTH+37,MUSIC_HEIGHT +i, 130, 50)];
+    sliderA.backgroundColor = [UIColor clearColor];
+    sliderA.value=0.5;
+    sliderA.minimumValue=0.0;
+    sliderA.maximumValue=1.0;
+    
+    
+    //注意这里要加UIControlStateHightlighted的状态，否则当拖动滑块时滑块将变成原生的控件
+    [sliderA setThumbImage:thumbImage forState:UIControlStateHighlighted];
+    [sliderA setThumbImage:thumbImage forState:UIControlStateNormal];
+    //滑块拖动时的事件
+    [sliderA addTarget:self action:@selector(sliderValueChanged) forControlEvents:UIControlEventValueChanged];
+    
+    [self addSubview:sliderA];
+    
+    
+}
+
+#pragma mark - 按钮事件设置
+
+-(void)sliderValueChanged{
+    
+    NSLog(@"sliderValueChanged");
+    
+}
+- (void)imageClicked:(id)sender {
+    
+    if (sender && [sender isKindOfClass:[UIButton class]]) {
+        UIButton* btn = (UIButton*)sender;
+        
+        switch (btn.tag) {
+            case 3000:
+            {
+                NSLog(@"1");
+            }
+                break;
+            case 4000:
+            {
+                NSLog(@"2");
+            }
+                break;
+            case 5000:
+            {
+                if (_delegate&&[_delegate respondsToSelector:@selector(pageJump)]) {
+                    [_delegate pageJump];
+                }
+            }
+                break;
+            default:
+                break;
+        }
+    }
+}
+
 
 @end

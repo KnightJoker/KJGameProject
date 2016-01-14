@@ -10,9 +10,10 @@
 #import "StartViewController.h"
 #import "SettingViewController.h"
 #import "PublicDefine.h"
+#import "SettingDialog.h"
 
-@interface MainViewController ()
-
+@interface MainViewController (){
+}
 @end
 
 @implementation MainViewController
@@ -73,7 +74,8 @@
 }
 
 #pragma mark - 按钮响应(Button Actions)
-#pragma mark 开始按钮
+
+//开始按钮
 - (void)start:(id)sender{
     
     StartViewController  *vc = [[StartViewController alloc] init];
@@ -86,24 +88,26 @@
     //  [vc release];
 }
 
-#pragma mark 继续按钮
+//继续按钮
 - (void)contine:(id)sender{
     NSLog(@"233333");
 }
 
-#pragma mark 设置按钮
+// 设置按钮
 - (void)setting:(id)sender{
-    SettingViewController *sc = [[SettingViewController alloc] init];
-    [self.navigationController pushViewController:sc animated:YES];
-    [self.navigationController setNavigationBarHidden:YES];
+//    SettingViewController *sc = [[SettingViewController alloc] init];
+//    [self.navigationController pushViewController:sc animated:YES];
+//    [self.navigationController setNavigationBarHidden:YES];
+    SettingDialog* dlg = [[SettingDialog alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    dlg.tag = 30000;
+    //dlg.delegate = self;
+    [self.view addSubview:dlg];
 }
 
-#pragma mark - 其他(others)
+//其他(others)
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
 
 @end

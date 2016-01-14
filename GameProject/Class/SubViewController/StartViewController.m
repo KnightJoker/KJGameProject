@@ -361,6 +361,7 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     dlg.tag = 1;
     dlg.delegate = self;
     [self.view addSubview:dlg];
+    
 }
 
 - (void)refreshMenuClicked{
@@ -368,7 +369,18 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     //[[Engine shareInstances] nextGamer];
     _numberLabel.text = @"0";
     [self modifyScore:0];
-    _uiMap = [[Engine shareInstances] refresh:_uiMap];
+    
+    [self startTimerAtProgress:PROGRESS_TOTAL_LEN];
+    
+   // _uiMap = [[Engine shareInstances] clear:_uiMap];
+    [[Engine shareInstances] refresh];
+    //_uiMap = [[Engine shareInstances] getPicMap];
+    
+    [_gameView removeFromSuperview];    //先重置游戏区域（刷新需要）
+
+    
+    _uiMap = [[Engine shareInstances] getPicMap];
+    
     [self initPicItems];
     
 }
@@ -386,5 +398,13 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     //重启计时器
     [self startTimerAtProgress:_currectProgress];
 }
+
+-(void)pageJump{
+    MainViewController* main = [[MainViewController alloc] init];
+    [self.navigationController pushViewController:main animated:YES];
+    /*导航条的隐藏*/
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
 
 @end

@@ -12,6 +12,8 @@
 
 - (void)settingDialogDidClose;
 
+- (void)pageJump;
+
 @end
 
 
