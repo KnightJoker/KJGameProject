@@ -11,6 +11,7 @@
 #import "SettingViewController.h"
 #import "PublicDefine.h"
 #import "SettingDialog.h"
+#import "ContinueViewController.h"
 
 @interface MainViewController (){
 }
@@ -90,7 +91,10 @@
 
 //继续按钮
 - (void)contine:(id)sender{
-    NSLog(@"233333");
+    ContinueViewController  *vc = [[ContinueViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+    /*导航条的隐藏*/
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
 // 设置按钮

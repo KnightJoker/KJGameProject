@@ -69,6 +69,8 @@
     slider.backgroundColor = [UIColor clearColor];
     [slider setMinimumTrackImage:[UIImage imageNamed:@"slider_03.png"]
                         forState:UIControlStateNormal];
+    slider.minimumTrackTintColor = [UIColor yellowColor];
+    slider.maximumTrackTintColor = [UIColor whiteColor];
     //slider.minimumValueImage = [UIImage imageNamed:@"slider_03"];
     
     //滑动条事件设置

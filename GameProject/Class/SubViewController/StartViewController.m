@@ -159,11 +159,14 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     for (int i = 1; i < 9; i++) {
         for (int j = 1; j < 9; j++) {
             //int num = [_uiMap[i][j] integerValue];
-            NSInteger num = [_uiMap[i][j] integerValue];  //
+            
+            NSNumber* value = (NSNumber*)_uiMap[i][j];
+            
+            int num =  [value intValue];
             
             UIImageView* picView = [[UIImageView alloc] initWithFrame:CGRectMake(MARGIN_X + (j - 1) * PIC_W, MARGIN_Y + (i -1) * PIC_H, PIC_W, PIC_H)];
             
-            NSString* imageName = [NSString stringWithFormat:@"fruit-%zi", num];
+            NSString* imageName = [NSString stringWithFormat:@"fruit-%d", num];
             
             picView.image = [UIImage imageNamed:imageName];
             picView.userInteractionEnabled = YES;
@@ -373,13 +376,14 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     [self startTimerAtProgress:PROGRESS_TOTAL_LEN];
     
    // _uiMap = [[Engine shareInstances] clear:_uiMap];
-    [[Engine shareInstances] refresh];
+    [_uiMap removeAllObjects];
+    _uiMap = [NSMutableArray arrayWithArray:[[Engine shareInstances] refresh]];
     //_uiMap = [[Engine shareInstances] getPicMap];
     
     [_gameView removeFromSuperview];    //先重置游戏区域（刷新需要）
-
+    _gameView = nil;
     
-    _uiMap = [[Engine shareInstances] getPicMap];
+   // _uiMap = [[Engine shareInstances] getPicMap];
     
     [self initPicItems];
     
@@ -399,7 +403,7 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     [self startTimerAtProgress:_currectProgress];
 }
 
--(void)pageJump{
+- (void)pageJump{
     MainViewController* main = [[MainViewController alloc] init];
     [self.navigationController pushViewController:main animated:YES];
     /*导航条的隐藏*/

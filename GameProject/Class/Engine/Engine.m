@@ -12,6 +12,9 @@
     NSMutableArray *_map;
     NSMutableArray *_picMap;
 }
+
+@property(nonatomic,strong)NSMutableArray *gateList;
+
 @end
 
 @implementation Engine
@@ -31,7 +34,7 @@
 - (id)init{
     self = [super init];
     if (self) {
-        
+        [self initGateList];
     }
     return self;
 }
@@ -48,6 +51,27 @@
     [self initPicMap];
 }
 
+- (void)initGateList{
+    
+    _gateList = (NSMutableArray*)[[NSUserDefaults standardUserDefaults] objectForKey:@"GATE_LIST_KEYS_NAME"];
+    
+    if (_gateList == nil) {
+        _gateList = [NSMutableArray array];
+        
+        for (int index = 0; index < 100; index++) {
+            if (index == 0) {
+                [_gateList insertObject:[NSNumber numberWithInt:0] atIndex:index];
+            }else{
+                [_gateList insertObject:[NSNumber numberWithInt:-1] atIndex:index];
+            }
+        }
+    }
+}
+
+- (NSArray *)getGateList{
+    return _gateList;
+}
+
 - (NSMutableArray *)clear:(NSMutableArray *)map{
     
     NSNumber *number = [NSNumber numberWithInt:-1];
@@ -61,37 +85,30 @@
     return map;
 }
 
-- (void)refresh{
+- (NSMutableArray *)refresh{
     
     int index = 64;
-//    NSNumber *number = [NSNumber numberWithInt:-1];
-//    NSMutableArray *lineArray = [NSMutableArray arrayWithArray:_map];
-
     NSMutableArray *tempArray = [NSMutableArray array];
     for (int i = 1; i < 9; i++) {
         for (int j = 1; j < 9; j++) {
-//            tempArray[8*i+j]=_map[i][j];
+            [tempArray addObject:_map[i][j]];
         }
-//        [tempArray objectAtIndex:i];
-//        [tempArray addObject:[_map objectAtIndex:i]];
     }
-    [_map removeAllObjects];
     
-    for (int i = 1; i < 9; i++) {
-        NSMutableArray *lineArray = [NSMutableArray array];
-        for (int j = 1; j < 9; j++) {
-//     此处容易出现index数组越界，并且执行之前 _map,tempArray,lineArray都为 0 object
-            int num = arc4random_uniform(index);
-            [lineArray addObject:@([[tempArray objectAtIndex:num] integerValue])];
-            tempArray[num] = tempArray[--index];
-            
-        }
-
-//        [lineArray insertObject:@(-1) atIndex:0];
-//        [lineArray addObject:@(-1)];
-        
-        [_map addObject:lineArray];
+    NSMutableArray *lineArray = [NSMutableArray array];
+    for (int i = 0; i < 64; i++) {
+        int num = arc4random_uniform(index);
+        [lineArray addObject:@([[tempArray objectAtIndex:num] integerValue])];
+        tempArray[num] = tempArray[--index];
     }
+    
+        for (int i = 1; i < 9; i++) {
+            for (int j = 1; j < 9; j++) {
+                _map[i][j] = [lineArray objectAtIndex:(8 * (i - 1) + j - 1)];
+            }
+        }
+   
+    return _map;
 }
 
 - (BOOL)find:(NSMutableArray *)map{

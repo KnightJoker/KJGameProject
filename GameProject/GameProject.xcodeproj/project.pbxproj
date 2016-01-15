@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		453D98F21C4881EA00799426 /* ContinueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 453D98F11C4881EA00799426 /* ContinueViewController.m */; };
 		455883C01C3F4C4A0073F842 /* MenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 455883BF1C3F4C4A0073F842 /* MenuView.m */; };
 		4567A1C81C3E4CF90080A4B3 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4567A1C71C3E4CF90080A4B3 /* SettingViewController.m */; };
 		457153381C3CD64B0096F042 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 457153371C3CD64B0096F042 /* MainViewController.m */; };
@@ -229,6 +230,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		453D98F01C4881EA00799426 /* ContinueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContinueViewController.h; sourceTree = "<group>"; };
+		453D98F11C4881EA00799426 /* ContinueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContinueViewController.m; sourceTree = "<group>"; };
 		455883BE1C3F4C4A0073F842 /* MenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuView.h; sourceTree = "<group>"; };
 		455883BF1C3F4C4A0073F842 /* MenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuView.m; sourceTree = "<group>"; };
 		4567A1C61C3E4CF90080A4B3 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
@@ -519,6 +522,8 @@
 				4571533E1C3CD7060096F042 /* StartViewController.m */,
 				4567A1C61C3E4CF90080A4B3 /* SettingViewController.h */,
 				4567A1C71C3E4CF90080A4B3 /* SettingViewController.m */,
+				453D98F01C4881EA00799426 /* ContinueViewController.h */,
+				453D98F11C4881EA00799426 /* ContinueViewController.m */,
 			);
 			path = SubViewController;
 			sourceTree = "<group>";
@@ -1189,6 +1194,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				459A67EB1C3BE0F700042F36 /* GameProject.xcdatamodeld in Sources */,
+				453D98F21C4881EA00799426 /* ContinueViewController.m in Sources */,
 				45D6227C1C42887C00BC17E0 /* Engine.m in Sources */,
 				4567A1C81C3E4CF90080A4B3 /* SettingViewController.m in Sources */,
 				45E6C3791C472DA600551E16 /* SettingDialog.m in Sources */,

@@ -17,13 +17,15 @@
 
 - (void)beginGamer;
 - (void)nextGamer;
+- (NSMutableArray *)refresh;
 
-- (void)refresh;
 - (NSMutableArray *)clear:(NSMutableArray *)map;
 
 -(int)isConnectionWithItems:(int)firstRow
                      column:(int)firstColumn
                  secondItem:(int)secondRow
                      column:(int)secondColumn;
+
+- (NSArray *)getGateList;
 
 @end

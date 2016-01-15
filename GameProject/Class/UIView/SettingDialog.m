@@ -133,7 +133,8 @@
     sliderA.value=0.5;
     sliderA.minimumValue=0.0;
     sliderA.maximumValue=1.0;
-    
+    sliderA.minimumTrackTintColor = [UIColor yellowColor];
+    sliderA.maximumTrackTintColor = [UIColor whiteColor];
     
     //注意这里要加UIControlStateHightlighted的状态，否则当拖动滑块时滑块将变成原生的控件
     [sliderA setThumbImage:thumbImage forState:UIControlStateHighlighted];
