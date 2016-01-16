@@ -10,8 +10,15 @@
 #import "PublicDefine.h"
 #import "MainViewController.h"
 
+#define MUSIC_BUTTON_TAG 3000
+#define SOUND_BUTTON_TAG 4000
+#define BACK_BUTTON_TAG 5000
+#define REGROUP_BUTTON_TAG 6000
+#define CONTINUE_BUTTON_TAG 7000
+
 @interface SettingDialog ()
-@property(nonatomic,strong)UIImageView *pause_bg;
+
+@property (nonatomic,strong) UIImageView *pause_bg;
 
 @end
 
@@ -93,32 +100,32 @@
     [music setImage:[UIImage imageNamed:@"music.png"] forState:UIControlStateNormal];
     [music addTarget:self action:@selector(imageClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:music];
-    music.tag = 3000;
+    music.tag = MUSIC_BUTTON_TAG;
     
     UIButton *sound = [[UIButton alloc] initWithFrame:CGRectMake(MUSIC_WISTH,MUSIC_HEIGHT+130-80 , 37, 37)];
     [sound setImage:[UIImage imageNamed:@"sound.png"] forState:UIControlStateNormal];
     [sound addTarget:self action:@selector(imageClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:sound];
-    sound.tag = 4000;
+    sound.tag = SOUND_BUTTON_TAG;
     
     UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(MUSIC_WISTH+margin1-5,MUSIC_HEIGHT+130-25 , 37, 37)];
     [back setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
     [back addTarget:self action:@selector(imageClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:back];
-    back.tag = 5000;
+    back.tag = BACK_BUTTON_TAG;
     
     
     UIButton *regroup = [[UIButton alloc] initWithFrame:CGRectMake(MUSIC_WISTH+2*margin1+37-5,MUSIC_HEIGHT+130-25 , 37, 37)];
     [regroup setImage:[UIImage imageNamed:@"regroup.png"] forState:UIControlStateNormal];
     [regroup addTarget:self action:@selector(imageClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:regroup];
-    regroup.tag = 6000;
+    regroup.tag = REGROUP_BUTTON_TAG;
     
     UIButton* continuegame = [[UIButton alloc] initWithFrame:CGRectMake(MUSIC_WISTH+200-3*margin1,MUSIC_HEIGHT+130-25 , 37, 37)];
     [continuegame setImage:[UIImage imageNamed:@"continuegame.png"] forState:UIControlStateNormal];
     [continuegame addTarget:self action:@selector(imageClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:continuegame];
-    continuegame.tag = 7000;
+    continuegame.tag = CONTINUE_BUTTON_TAG;
     
     
 }
@@ -128,11 +135,11 @@
     UIImage *thumbImage = [UIImage imageNamed:@"slider_03.png"];
     
     
-    UISlider *sliderA=[[UISlider alloc]initWithFrame:CGRectMake(MUSIC_WISTH+37,MUSIC_HEIGHT +i, 130, 50)];
+    UISlider *sliderA=[[UISlider alloc]initWithFrame:CGRectMake(MUSIC_WISTH + 37,MUSIC_HEIGHT + i, 130, 50)];
     sliderA.backgroundColor = [UIColor clearColor];
-    sliderA.value=0.5;
-    sliderA.minimumValue=0.0;
-    sliderA.maximumValue=1.0;
+    sliderA.value = 0.5;
+    sliderA.minimumValue = 0.0;
+    sliderA.maximumValue = 1.0;
     sliderA.minimumTrackTintColor = [UIColor yellowColor];
     sliderA.maximumTrackTintColor = [UIColor whiteColor];
     
@@ -160,20 +167,34 @@
         UIButton* btn = (UIButton*)sender;
         
         switch (btn.tag) {
-            case 3000:
+            case MUSIC_BUTTON_TAG:
             {
                 NSLog(@"1");
             }
                 break;
-            case 4000:
+            case SOUND_BUTTON_TAG:
             {
                 NSLog(@"2");
             }
                 break;
-            case 5000:
+            case BACK_BUTTON_TAG:
             {
-                if (_delegate&&[_delegate respondsToSelector:@selector(pageJump)]) {
-                    [_delegate pageJump];
+                if (_delegate && [_delegate respondsToSelector:@selector(settingDialogDidClickBack)]) {
+                    [_delegate settingDialogDidClickBack];
+                }
+            }
+                break;
+            case REGROUP_BUTTON_TAG:
+            {
+                if (_delegate && [_delegate respondsToSelector:@selector(settingDialogDidClickRefresh)]) {
+                    [_delegate settingDialogDidClickRefresh];
+                }
+            }
+                break;
+            case CONTINUE_BUTTON_TAG:
+            {
+                if (_delegate && [_delegate respondsToSelector:@selector(settingDialogDidClickResume)]) {
+                    [_delegate settingDialogDidClickResume];
                 }
             }
                 break;

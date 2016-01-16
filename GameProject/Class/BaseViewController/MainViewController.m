@@ -13,8 +13,10 @@
 #import "SettingDialog.h"
 #import "ContinueViewController.h"
 
-@interface MainViewController (){
-}
+@interface MainViewController () <SettingDialogDelegate>
+
+@property (strong, nonatomic) SettingDialog *settingDialog;
+
 @end
 
 @implementation MainViewController
@@ -22,7 +24,6 @@
 #pragma mark - 生命周期(life circle)
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self initView];
 }
 
@@ -102,16 +103,49 @@
 //    SettingViewController *sc = [[SettingViewController alloc] init];
 //    [self.navigationController pushViewController:sc animated:YES];
 //    [self.navigationController setNavigationBarHidden:YES];
-    SettingDialog* dlg = [[SettingDialog alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    dlg.tag = 30000;
-    //dlg.delegate = self;
-    [self.view addSubview:dlg];
+    
+    if (!_settingDialog) {
+        self.settingDialog = [[SettingDialog alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        self.settingDialog.delegate = self;
+    }
+    
+    self.settingDialog.alpha = 1;
+    [self.view addSubview:self.settingDialog];
+
 }
 
 //其他(others)
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - setting dialog delegate
+- (void)settingDialogDidClose{
+    [self closeDialog];
+}
+
+- (void)settingDialogDidClickBack {
+    [self closeDialog];
+}
+
+- (void)settingDialogDidClickRefresh {
+    
+}
+
+- (void)settingDialogDidClickResume {
+   
+}
+
+#pragma mark 私有方法
+- (void)closeDialog{
+
+    [UIView animateWithDuration:0.2 animations:^{
+        self.settingDialog.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self.settingDialog removeFromSuperview];
+    }];
+    
 }
 
 @end

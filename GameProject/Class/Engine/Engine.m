@@ -60,9 +60,9 @@
         
         for (int index = 0; index < 100; index++) {
             if (index == 0) {
-                [_gateList insertObject:[NSNumber numberWithInt:0] atIndex:index];
+                [_gateList insertObject:[NSNumber numberWithInteger:0] atIndex:index];
             }else{
-                [_gateList insertObject:[NSNumber numberWithInt:-1] atIndex:index];
+                [_gateList insertObject:[NSNumber numberWithInteger:-1] atIndex:index];
             }
         }
     }
@@ -74,7 +74,7 @@
 
 - (NSMutableArray *)clear:(NSMutableArray *)map{
     
-    NSNumber *number = [NSNumber numberWithInt:-1];
+    NSNumber *number = [NSNumber numberWithInteger:-1];
     for (int i = 1; i < 9; i++) {
         for (int j = 1; j < 9; j++) {
             if (map[i][j] != number) {
@@ -102,13 +102,13 @@
         tempArray[num] = tempArray[--index];
     }
     
-        for (int i = 1; i < 9; i++) {
-            for (int j = 1; j < 9; j++) {
-                _map[i][j] = [lineArray objectAtIndex:(8 * (i - 1) + j - 1)];
-            }
+    for (int i = 1; i < 9; i++) {
+        for (int j = 1; j < 9; j++) {
+            _map[i][j] = [lineArray objectAtIndex:(8 * (i - 1) + j - 1)];
         }
-   
-    return _map;
+    }
+    
+    return _map;	
 }
 
 - (BOOL)find:(NSMutableArray *)map{
@@ -126,8 +126,8 @@
     
     for (int index = 0; index < 64; index++) {
         int random = arc4random() % 5 + 1;
-        [_picMap insertObject:[NSNumber numberWithInt:random] atIndex:index];
-        [_picMap insertObject:[NSNumber numberWithInt:random] atIndex:index++];
+        [_picMap insertObject:[NSNumber numberWithInteger:random] atIndex:index];
+        [_picMap insertObject:[NSNumber numberWithInteger:random] atIndex:index++];
     }
     
 }
@@ -189,7 +189,7 @@
               secondItem:(int)secondRow
                   column:(int)secondColumn{
     
-    NSNumber *number = [NSNumber numberWithInt:-1];
+    NSNumber *number = [NSNumber numberWithInteger:-1];
     //判断2个元素的行值是否相等
     if (firstRow == secondRow) {
         //取得最大及最小值
@@ -197,7 +197,7 @@
         int column_max = firstColumn > secondColumn? firstColumn : secondColumn;
         
         for (int j = column_min + 1; j < column_max; j++) {
-          
+            
             if (_map[firstRow][j] != number) {
                 return NO;
             }
@@ -241,7 +241,7 @@
                       column:(int)secondColumn{
     
     //通过一折消去，折点是固定的(firstRow,secondColumn)及 (secondRow，firstColumn)
-     NSNumber *number = [NSNumber numberWithInt:-1];
+    NSNumber *number = [NSNumber numberWithInteger:-1];
     
     if (_map[firstRow][secondColumn] == number && [self linkBylinkToItems:firstRow column:secondColumn secondItem:firstRow column:firstColumn] && [self linkBylinkToItems:firstRow column:secondColumn secondItem:secondRow column:secondColumn]) {
         
@@ -271,7 +271,7 @@
                   secondItem:(int)secondRow
                       column:(int)secondColumn{
     
-    NSNumber *number = [NSNumber numberWithInt:-1];
+    NSNumber *number = [NSNumber numberWithInteger:-1];
     
     for (int row = 0; row < 10; row++) {
         if (_map[row][firstColumn] == number && [self linkBylinkToItems:row column:firstColumn secondItem:firstRow column:firstColumn] && [self linkByOneTurnWithItms:row column:firstColumn secondItem:secondRow column:secondColumn]) {
@@ -303,7 +303,7 @@
                  secondItem:(int)secondRow
                      column:(int)secondColumn{
     
-    NSNumber *number = [NSNumber numberWithInt:-1];
+    NSNumber *number = [NSNumber numberWithInteger:-1];
     
     if (_map[firstRow][firstColumn] == number || _map[secondRow][secondColumn] == number ||
         _map[firstRow][firstColumn] != _map[secondRow][secondColumn] ||

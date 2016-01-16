@@ -10,9 +10,15 @@
 
 @protocol SettingDialogDelegate <NSObject>
 
+@optional
 - (void)settingDialogDidClose;
 
-- (void)pageJump;
+@required
+- (void)settingDialogDidClickBack;
+
+- (void)settingDialogDidClickRefresh;
+
+- (void)settingDialogDidClickResume;
 
 @end
 

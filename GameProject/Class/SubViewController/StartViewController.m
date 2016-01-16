@@ -192,7 +192,7 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateProgressView:)  userInfo:nil repeats:YES];
     
     return _timer;
-}
+} 
 
 - (void)stopTimer {
     [_timer invalidate];
@@ -393,7 +393,32 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     NSLog(@"发现");
 }
 
+#pragma mark - setting dialog delegate
 - (void)settingDialogDidClose{
+    [self continuePlayGame];
+}
+
+- (void)settingDialogDidClickBack {
+    [self pageJump];
+}
+
+- (void)settingDialogDidClickRefresh {
+    [self refreshMenuClicked];
+}
+
+- (void)settingDialogDidClickResume {
+    [self continuePlayGame];
+}
+
+#pragma mark 私有方法
+- (void)pageJump{
+    MainViewController* main = [[MainViewController alloc] init];
+    [self.navigationController pushViewController:main animated:YES];
+    /*导航条的隐藏*/
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
+- (void)continuePlayGame {
     
     SettingDialog* dialog = (SettingDialog*)[self.view viewWithTag:1];
     [dialog removeFromSuperview];
@@ -401,13 +426,6 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     
     //重启计时器
     [self startTimerAtProgress:_currectProgress];
-}
-
-- (void)pageJump{
-    MainViewController* main = [[MainViewController alloc] init];
-    [self.navigationController pushViewController:main animated:YES];
-    /*导航条的隐藏*/
-    [self.navigationController setNavigationBarHidden:YES];
 }
 
 
