@@ -6,6 +6,7 @@
 //  Copyright © 2016年 YYQ2B. All rights reserved.
 //
 
+#import "StartViewController.h"
 #import "ContinueViewController.h"
 #import "MainViewController.h"
 #import "PublicDefine.h"
@@ -120,6 +121,9 @@
                 rect = CGRectMake(space_x * (rate_row + 1) + rate_row * 50, space_y * (rate_column + 1) + rate_column * 58, 50, 58);
                 gateView.frame = rect;
                 
+                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(LevelOpenClicked:)];
+                gateView.userInteractionEnabled = YES;
+                [gateView addGestureRecognizer:tap];
                 
             }else{
                 gateView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LevelLock.png"]];
@@ -136,7 +140,15 @@
 
 
 
-
+- (void)LevelOpenClicked:(id)sender{
+    NSLog(@"解锁成功");
+    if (sender && [sender isKindOfClass:[UITapGestureRecognizer class]]) {
+        StartViewController* main = [[StartViewController alloc] init];
+        [self.navigationController pushViewController:main animated:YES];
+        /*导航条的隐藏*/
+        [self.navigationController setNavigationBarHidden:YES];
+    }
+}
 
 
 

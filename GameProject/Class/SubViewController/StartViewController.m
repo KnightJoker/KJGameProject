@@ -352,7 +352,7 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
         [label removeFromSuperview];
     }];
 }
-
+    
 #pragma mark - 代理事件处理
 - (void)pauseMenuClicked{
     
