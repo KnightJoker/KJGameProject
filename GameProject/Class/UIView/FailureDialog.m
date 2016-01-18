@@ -16,8 +16,8 @@
 
 @interface FailureDialog ()
 
-@property(nonatomic, strong)UIImageView* over_bg;
-@property(nonatomic, strong)UIImageView* pause_bg;
+@property(nonatomic, strong)UIImageView *over_bg;
+@property(nonatomic, strong)UIImageView *pause_bg;
 
 
 @end
@@ -34,9 +34,9 @@ int margin = (200 - 37 * 3) / 4;
     if (self) {
         [self initDialogUI];
         
-        [self initButten:CGRectMake(MUSIC_WISTH+margin-5,MUSIC_HEIGHT+130-25 ,37,37)image:@"back.png" tag:BACK_BUTTON_TAG];
+        [self initButten:CGRectMake(MUSIC_WISTH + margin - 5,MUSIC_HEIGHT + 130 - 25,37,37)image:@"back.png" tag:BACK_BUTTON_TAG];
         
-        [self initButten:CGRectMake(MUSIC_WISTH+200-3*margin,MUSIC_HEIGHT+130-25,37,37)image:@"regroup.png" tag:RESTART_BUTTON_TAG];
+        [self initButten:CGRectMake(MUSIC_WISTH + 200 - 3 * margin,MUSIC_HEIGHT + 130 - 25,37,37)image:@"regroup.png" tag:RESTART_BUTTON_TAG];
     }
     
     
@@ -45,11 +45,11 @@ int margin = (200 - 37 * 3) / 4;
 }
 
 - (void)initDialogUI{
-    UIView* mbView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    mbView.backgroundColor = [UIColor colorWithRed:146/255.0 green:146/255.0 blue:146/255.0 alpha:.7];
+    UIView *mbView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    mbView.backgroundColor = [UIColor colorWithRed:(146 / 255.0) green:(146 / 255.0) blue:(146 / 255.0) alpha:.7];
     [self addSubview:mbView];
     
-    _over_bg = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-298)/2, -70, 298, 66)];
+    _over_bg = [[UIImageView alloc] initWithFrame:CGRectMake( (SCREEN_WIDTH-298) / 2, - 70, 298, 66)];
     _over_bg.image = [UIImage imageNamed: @"over.png"];
     [self addSubview:_over_bg];
     
@@ -60,7 +60,7 @@ int margin = (200 - 37 * 3) / 4;
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
                          CGRect rt = _over_bg.frame;
-                         rt.origin.y += (SCREEN_HEIGHT-130)/2+20;
+                         rt.origin.y += (SCREEN_HEIGHT-130) / 2 + 20;
                          _over_bg.frame = rt;
                      }
                      completion:NULL];
@@ -68,7 +68,7 @@ int margin = (200 - 37 * 3) / 4;
 }
 - (void)initButten:(CGRect)rect image:(NSString*)imageName tag:(int)btnTag{
     
-    UIButton* btn = [[UIButton alloc] initWithFrame:rect];
+    UIButton *btn = [[UIButton alloc] initWithFrame:rect];
     [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     btn.tag = btnTag;
     [btn addTarget:self action:@selector(imageClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -85,7 +85,7 @@ int margin = (200 - 37 * 3) / 4;
 - (void)imageClicked:(id)sender {
     
     if (sender && [sender isKindOfClass:[UIButton class]]) {
-        UIButton* btn = (UIButton*)sender;
+        UIButton *btn = (UIButton*)sender;
         switch (btn.tag) {
             case BACK_BUTTON_TAG:
             {

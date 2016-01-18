@@ -203,7 +203,7 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
 - (void)updateProgressView:(id)sender{
 //    __block BOOL flag;
     _currectProgress -= PROGRESS_STEP_LEN;
-//    _currectProgress = -1;
+//    _currectProgress = -1;，，，
     if (_currectProgress < 0) {
         [self stopTimer];
         FailureDialog* dlg = [[FailureDialog alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
