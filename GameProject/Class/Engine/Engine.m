@@ -111,10 +111,46 @@
     return _map;	
 }
 
-- (BOOL)find:(NSMutableArray *)map{
-    
-    
-    return YES;
+//- (void)find{
+//    NSMutableArray *temp = [NSMutableArray array];
+//    
+//    for (int i = 1; i < 9; i++) {
+//        for (int j = 1; j < 9; j++) {
+//            for (int x = 1; x < 9; x++) {
+//                for (int y = 1; y < 9; y++) {
+//                    int line=[self isConnectionWithItems:i column:j secondItem:x column:y];
+//                    if (line != 0) {
+//                        [temp insertObject:[NSNumber numberWithInt:i] atIndex:0];
+//                        [temp insertObject:[NSNumber numberWithInt:j] atIndex:1];
+//                        [temp insertObject:[NSNumber numberWithInt:x] atIndex:2];
+//                        [temp insertObject:[NSNumber numberWithInt:y] atIndex:3];
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//  //  return temp;
+//}
+
+- (BOOL)find:(int[4])a{
+    for (int i=1; i<9; i++) {
+        for (int j=1; j<9; j++) {
+            for (int k=1; k<9; k++) {
+                for (int l=1; l<9; l++) {
+                    int line=[self isConnectionWithItems:i column:j secondItem:k column:l];
+                    if (line!=0) {
+                        a[0]= j;
+                        a[1]= i;
+                        a[2]= l;
+                        a[3]= k;
+                        return YES;
+                    }
+                }
+            }
+        }
+    }
+    return  NO;
 }
 
 - (void)initMap{

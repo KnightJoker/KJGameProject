@@ -19,6 +19,8 @@
 - (void)nextGamer;
 - (NSMutableArray *)refresh;
 
+- (BOOL)find:(int [4])a;
+
 - (NSMutableArray *)clear:(NSMutableArray *)map;
 
 -(int)isConnectionWithItems:(int)firstRow

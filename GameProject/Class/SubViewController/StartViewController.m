@@ -12,6 +12,7 @@
 #import "PublicDefine.h"
 #import "Engine.h"
 #import "SettingDialog.h"
+#import "FailureDialog.h"
 
 #define PIC_W   47
 #define PIC_H   47
@@ -33,7 +34,7 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     GamerStatusTypeMax,
 };
 
-@interface StartViewController ()<MenuViewDelegate,SettingDialogDelegate>{
+@interface StartViewController ()<MenuViewDelegate,SettingDialogDelegate,FailureDialogDelegate>{
     UILabel *_numberLabel;
     NSMutableArray *_uiMap;
     
@@ -200,14 +201,28 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
 }
 
 - (void)updateProgressView:(id)sender{
-    
+//    __block BOOL flag;
     _currectProgress -= PROGRESS_STEP_LEN;
-    
+//    _currectProgress = -1;
     if (_currectProgress < 0) {
         [self stopTimer];
+        FailureDialog* dlg = [[FailureDialog alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+       dlg.tag = 20000;
+        dlg.delegate = self;
+        [self.view addSubview:dlg];
     }
+    [_progressView setProgress:_currectProgress / PROGRESS_TOTAL_LEN  animated:YES];
     
-    [_progressView setProgress:_currectProgress / PROGRESS_TOTAL_LEN animated:YES];
+//    if (_currectProgress < PROGRESS_TOTAL_LEN/4.0) {
+//        _progressView.tintColor=[UIColor redColor];
+//        [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+//            flag = !flag;
+//            _progressView.hidden = flag;
+//        }completion:^(BOOL f){
+//            
+//        }];
+//    
+//    }
     
 }
 
@@ -353,7 +368,9 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     }];
 }
     
-#pragma mark - 代理事件处理
+#pragma mark - 代理
+
+#pragma mark MenuView
 - (void)pauseMenuClicked{
     
     NSLog(@"暂停");
@@ -391,9 +408,29 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
 
 - (void)findMenuClicked{
     NSLog(@"发现");
+//    NSMutableArray *tempArrey = [NSMutableArray array];
+//    tempArrey = [[Engine shareInstances] find:_uiMap];
+    int a[4];
+    BOOL b = [[Engine shareInstances]find:a];
+    
+    if (b) {
+        _firstRow = (int)a[0];
+        _firstColumn = (int)a[1];
+        _secondRow = (int)a[2];
+        _secondColumn = (int)a[3];
+        
+        NSLog(@"%d",_firstRow);
+        NSLog(@"%d",_firstColumn);
+        NSLog(@"%d",_secondRow);
+        NSLog(@"%d",_secondColumn);
+    }
+
+    //选中放大
+   // [self scaleChangeForItem:_firstView isScaleUp:YES completion:nil];
+    
 }
 
-#pragma mark - setting dialog delegate
+#pragma mark SettingDialog
 - (void)settingDialogDidClose{
     [self continuePlayGame];
 }
@@ -410,7 +447,7 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     [self continuePlayGame];
 }
 
-#pragma mark 私有方法
+//私有方法
 - (void)pageJump{
     MainViewController* main = [[MainViewController alloc] init];
     [self.navigationController pushViewController:main animated:YES];
@@ -426,6 +463,19 @@ typedef NS_ENUM(NSInteger, GamerStatusType){
     
     //重启计时器
     [self startTimerAtProgress:_currectProgress];
+}
+
+#pragma mark FailureDialog
+- (void)failureDialogBackClicked {
+    [self pageJump];
+}
+
+
+- (void)failureDialogCloseDialog {
+    FailureDialog* dialog = (FailureDialog*)[self.view viewWithTag:20000];
+    [dialog removeFromSuperview];
+    dialog = nil;
+  //  [self performSelector:@selector(restartGamer)];
 }
 
 
